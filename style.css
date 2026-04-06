@@ -1,0 +1,333 @@
+/* --- Basic Settings and Main Colors --- */
+:root {
+  --primary-blue-vibrant: #007BFF; /* สีน้ำเงินสดใสหลัก */
+  --primary-blue-dark: #004085; /* สีน้ำเงินเข้ม */
+  --dark-text: #000000; /* ดำสนิท เพื่อ Contrast สูงสุดกับพื้นหลังสว่าง */
+  --background-light: #EBF2FD; /* พื้นหลังโดยรวมที่สว่าง */
+  --background-white: #FFFFFF; /* พื้นหลังสีขาว */
+  --border-color-light: #A3C9F7; /* เส้นขอบสีฟ้าอ่อน */
+
+  --status-red: #DC3545; /* แดงสดใส */
+  --status-gray-dark: #343A40; /* เทาเข้มมาก */
+  --status-yellow-vibrant: #FFC107; /* เหลืองสดใส */
+  --status-green-vibrant: #28A745; /* เขียวสดใส (ยังคงมีไว้สำหรับปุ่มหลักสีเขียว) */
+  --status-green-dark: #1F7A35; /* เขียวเข้ม (ยังคงมีไว้สำหรับปุ่มหลักสีเขียว) */
+  --status-green-light-bg: #EAF7ED; /* เขียวอ่อนสำหรับพื้นหลัง (ยังคงมีไว้สำหรับปุ่มหลักสีเขียว) */
+
+  --light-gray: #CED4DA; /* เทาอ่อน */
+  --dark-gray-text: #212529; /* เทาเข้มสำหรับข้อความ */
+  --medium-gray-bg: #6C757D; /* เทาปานกลาง */
+}
+
+body, html { font-family: 'Prompt', sans-serif; background-color: var(--background-light); color: var(--dark-text); margin: 0; }
+body { padding: 20px; box-sizing: border-box; }
+
+#app-container { width: 100%; max-width: 960px; margin: auto; background-color: var(--background-white); border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); overflow: hidden; }
+.app-header { background: linear-gradient(135deg, var(--primary-blue-vibrant), var(--primary-blue-dark)); /* ไล่สีน้ำเงิน */ color: var(--background-white); padding: 2rem; text-align: center; }
+.app-header h1 { margin: 0; font-weight: 700; }
+.app-header p { margin: 5px 0 0; opacity: 1; font-weight: 500; }
+.icon-header { margin-right: 10px; }
+main#app-content { padding: 2rem; }
+.app-footer { text-align: center; padding: 1rem; background-color: #F0F6FC; color: var(--dark-gray-text); font-size: 1em; border-top: 1px solid var(--border-color-light); }
+
+/* --- Utility & Components --- */
+.loading-spinner { text-align: center; padding: 4rem; font-size: 1.5rem; color: var(--primary-blue-dark); }
+.loading-spinner i { font-size: 2.5rem; }
+
+.page-title { font-size: 2rem; color: var(--primary-blue-vibrant); border-bottom: 3px solid var(--primary-blue-vibrant); padding-bottom: 0.5rem; margin-bottom: 1.5rem; display: flex; align-items: center; font-weight: 700; }
+.page-title i { margin-right: 15px; }
+.btn { padding: 12px 25px; border: none; border-radius: 6px; cursor: pointer; font-family: 'Prompt', sans-serif; font-size: 1.1rem; transition: all 0.2s; background-color: var(--primary-blue-vibrant); color: white; font-weight: 600; }
+.btn:hover { opacity: 0.9; transform: translateY(-1px); }
+#btn-logout { background-color: var(--status-red); }
+.btn-back { background-color: var(--status-gray-dark); }
+.btn-action-group { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem; }
+
+/* --- Forms --- */
+.form-group { margin-bottom: 1.8rem; }
+label { display: block; margin-bottom: 0.6rem; font-weight: 600; color: var(--dark-gray-text); font-size: 1.05rem; }
+input[type="text"], input[type="password"], input[type="date"], select {
+  width: 100%; padding: 14px 18px; border: 2px solid var(--border-color-light); border-radius: 8px; font-size: 1.05rem; font-family: 'Prompt', sans-serif; box-sizing: border-box; transition: all 0.2s ease-in-out; background-color: #fff; color: var(--dark-text);
+}
+input:focus, select:focus { outline: none; border-color: var(--primary-blue-vibrant); box-shadow: 0 0 0 5px rgba(0, 123, 255, 0.25); }
+.login-form-container { max-width: 450px; margin: 2rem auto; padding: 2.5rem; border: 2px solid var(--border-color-light); border-radius: 10px; background-color: #F7FBFF; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+
+/* --- Main Menu --- */
+.main-menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; margin-top: 1.5rem; }
+
+.menu-card {
+  background-color: var(--background-white);
+  border: 3px solid var(--primary-blue-vibrant);
+  border-radius: 18px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.12);
+  transform: scale(1.0);
+}
+
+.menu-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 16px 30px rgba(0,0,0,0.2);
+  border-color: var(--primary-blue-dark);
+}
+
+.menu-card i { font-size: 3.5rem; color: var(--primary-blue-vibrant); margin-bottom: 1.5rem; }
+.menu-card h3 { margin: 0 0 1rem 0; color: var(--primary-blue-dark); font-size: 1.5rem; font-weight: 800; }
+.menu-card p { margin: 0; font-size: 1.1rem; color: var(--dark-gray-text); opacity: 1; }
+
+.admin-role-badge { font-size: 0.9em; background-color: var(--status-yellow-vibrant); color: var(--dark-gray-text); padding: 4px 10px; border-radius: 12px; font-weight: bold; margin-left: 10px; }
+
+
+/* Styles for the SECONDARY menu card (e.g., "Check Treated Patients") */
+.menu-card.menu-card-secondary {
+    background-color: var(--status-green-light-bg);
+    border-color: var(--status-green-vibrant);
+    transform: scale(0.98);
+}
+
+.menu-card.menu-card-secondary:hover {
+    border-color: var(--status-green-vibrant);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    transform: translateY(-5px) scale(1.0);
+}
+
+.menu-card.menu-card-secondary i {
+    color: var(--status-green-vibrant);
+}
+
+.menu-card.menu-card-secondary h3 {
+    color: var(--status-green-vibrant);
+}
+
+
+/* --- Dashboard & Tables --- */
+.dashboard-section { margin-bottom: 3rem; }
+.dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; padding-bottom: 0.8rem; border-bottom: 2px solid var(--border-color-light); flex-wrap: wrap; gap: 1.2rem; }
+.dashboard-header h3 { margin: 0; color: var(--primary-blue-vibrant); font-size: 1.7rem; font-weight: 700; flex-grow: 1; }
+
+/* REVERTED: Styles for the records page headers (Therapist and Admin) to BLUE */
+#therapist-records-title,
+#admin-records-title {
+    color: var(--primary-blue-vibrant); /* กลับเป็นสีน้ำเงินสดใส */
+    border-bottom-color: var(--primary-blue-vibrant); /* กลับเป็นสีน้ำเงินสดใส */
+}
+/* ไอคอนในหัวข้อ records */
+#therapist-records-title i,
+#admin-records-title i {
+    color: var(--primary-blue-vibrant); /* กลับเป็นสีน้ำเงินสดใส */
+}
+
+
+.dashboard-header .controls { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
+.dashboard-header .controls label { margin-bottom: 0; font-weight: 600; color: var(--dark-gray-text); }
+input[type="date"], select { width: auto; min-width: 200px; font-size: 1rem; }
+
+.appointments-table { width: 100%; border-collapse: collapse; margin-top: 1.8rem; }
+.appointments-table th, .appointments-table td { padding: 0.9rem 1.2rem; border: 1px solid var(--border-color-light); text-align: left; font-size: 1rem; }
+.appointments-table th { font-weight: 700; }
+.appointments-table thead { background-color: var(--primary-blue-dark); color: white; }
+
+/* REVERTED: Style for table header in records page to BLUE */
+#records-container .appointments-table thead {
+    background-color: var(--primary-blue-dark); /* กลับไปใช้สีน้ำเงินเข้มสำหรับหัวตารางในหน้า records */
+    color: white;
+}
+
+.appointments-table tr.row-booked { background-color: #E0F0FF; } /* ฟ้าอ่อน */
+.appointments-table tr.row-blocked { background-color: #FFF8E6; } /* เหลืองอ่อน */
+.appointments-table tr.row-available td { color: var(--medium-gray-bg); font-style: italic; font-weight: 500; }
+.appointments-table .no-data { text-align: center; color: var(--status-gray-dark); padding: 2rem; font-size: 1.1rem; font-weight: 600; }
+
+/* --- Slot Management --- */
+.management-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.2rem; }
+.slot-card { border: 2px solid var(--border-color-light); border-radius: 10px; padding: 1.2rem; text-align: center; transition: box-shadow 0.2s; display: flex; flex-direction: column; }
+.slot-card:hover { box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
+.slot-card-time { font-size: 1.7rem; font-weight: 700; margin-bottom: 0.6rem; color: var(--dark-text); }
+.slot-card-details { font-size: 1rem; padding: 0.6rem; border-radius: 6px; margin-bottom: 1.2rem; flex-grow: 1; font-weight: 500; }
+.status-booked { background-color: #DDEFFF; color: #004085; border: 1px solid #A6D4FF; }
+.status-blocked { background-color: #FFF3CD; color: #664903; border: 1px solid #FFDB8B; }
+.status-available { background-color: #DFFFE0; color: #1D5B20; border: 1px solid #B0DBB1; }
+
+.btn-block {
+  background-color: var(--status-green-vibrant);
+  color: white;
+  width: 100%;
+  font-weight: bold;
+  padding: 12px 20px;
+  font-size: 1.05rem;
+}
+.btn-unblock {
+  background-color: var(--medium-gray-bg);
+  color: white;
+  width: 100%;
+  font-weight: bold;
+  padding: 12px 20px;
+  font-size: 1.05rem;
+}
+.btn-unblock:disabled {
+  background-color: var(--light-gray);
+  color: var(--dark-gray-text);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.swal-input-small { width: 90% !important; margin: 0.5em auto !important; }
+/* กำหนดขนาดของ Input ใน SweetAlert2 ให้มีความกว้างที่พอดี */
+.swal2-container .swal2-input {
+    box-sizing: border-box; /* ทำให้ padding และ border ไม่เพิ่มขนาดของกล่อง */
+    width: 100% !important; /* กำหนดให้มีความกว้างเต็มกรอบของ SweetAlert2 */
+    max-width: 350px !important; /* กำหนดความกว้างสูงสุดเพื่อให้ดูดีบนหน้าจอใหญ่ */
+    margin: 1em auto !important; /* จัดให้อยู่กึ่งกลาง */
+}
+
+/* =================================================== */
+/* === ส่วนปรับปรุงสำหรับหน้าจอมือถือ (Responsive) === */
+/* =================================================== */
+@media (max-width: 768px) {
+  body { padding: 10px; }
+  main#app-content { padding: 1rem; }
+
+  .app-header { padding: 1.2rem 1rem; /* ลด padding เพื่อประหยัดพื้นที่ */ }
+  .app-header h1 { font-size: 1.4rem; font-weight: 700; } /* ลดขนาดฟอนต์ */
+  .app-header p { font-size: 0.9rem; } /* ลดขนาดฟอนต์ */
+  .page-title { font-size: 1.6rem; /* ลดขนาดฟอนต์ */ margin-bottom: 1rem; }
+  .page-title i { margin-right: 10px; /* ลดระยะห่าง */ font-size: 1.8rem; }
+  .login-form-container { padding: 1.5rem; margin: 1rem auto; }
+  
+  /* จัดการ Controls ใน dashboard-header ให้เหมาะสมกับจอเล็ก */
+  .dashboard-header {
+    flex-direction: column; /* ให้เรียงเป็นแนวตั้ง */
+    align-items: stretch; /* ให้ยืดเต็มความกว้าง */
+    gap: 0.8rem; /* ลดระยะห่างระหว่าง Control */
+    padding-bottom: 0.5rem; /* ลด padding */
+  }
+  .dashboard-header h3 {
+    font-size: 1.5rem; /* ลดขนาดฟอนต์ */
+    text-align: center; /* จัดให้อยู่กลาง */
+    width: 100%; /* ให้เต็มความกว้าง */
+    margin-bottom: 0.5rem; /* เพิ่มระยะห่างด้านล่าง */
+  }
+  .dashboard-header .controls {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 0.8rem; /* ลดระยะห่างระหว่าง input/select */
+  }
+  .dashboard-header .controls label {
+    text-align: left; /* จัดชิดซ้าย */
+    width: 100%; /* ให้เต็มความกว้าง */
+  }
+  /* ทำให้ input และ select ยืดเต็มความกว้าง */
+  input[type="date"], select,
+  .dashboard-header .controls input[type="date"],
+  .dashboard-header .controls select {
+    width: 100%;
+    min-width: unset; /* ยกเลิก min-width */
+  }
+  .dashboard-header .controls .btn-back {
+      order: 3; /* จัดลำดับให้ปุ่ม Back อยู่ด้านล่างสุดในกลุ่ม controls */
+  }
+  .btn-action-group {
+    flex-direction: column; /* ให้ปุ่มเรียงเป็นแนวตั้ง */
+    gap: 0.8rem; /* ลดระยะห่างระหว่างปุ่ม */
+    margin-top: 1.5rem; /* ลดระยะห่างด้านบน */
+  }
+  .btn {
+    width: 100%; /* ทำให้ปุ่มยืดเต็มความกว้าง */
+    font-size: 1rem; /* ลดขนาดฟอนต์ของปุ่ม */
+    padding: 10px 15px; /* ลด padding ของปุ่ม */
+  }
+
+  /* --- Main Menu Grid --- */
+  .main-menu-grid {
+    grid-template-columns: 1fr; /* ให้เรียงเป็นคอลัมน์เดียว */
+    gap: 1.5rem; /* ลดระยะห่างระหว่าง card */
+  }
+  .menu-card {
+    padding: 1.5rem; /* ลด padding ของ card */
+  }
+  .menu-card i {
+    font-size: 3rem; /* ลดขนาดไอคอน */
+    margin-bottom: 1rem; /* ลดระยะห่าง */
+  }
+  .menu-card h3 {
+    font-size: 1.3rem; /* ลดขนาดฟอนต์หัวข้อ */
+  }
+  .menu-card p {
+    font-size: 0.95rem; /* ลดขนาดฟอนต์เนื้อหา */
+  }
+
+  /* --- แปลงตารางเป็น Card --- */
+  .appointments-table {
+    border: none;
+    width: 100%; /* ตรวจสอบให้แน่ใจว่าตารางเต็มความกว้าง */
+  }
+  .appointments-table thead {
+    display: none;
+  }
+  .appointments-table tr {
+    display: block;
+    margin-bottom: 1rem;
+    border: 2px solid var(--border-color-light);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  }
+  .appointments-table td {
+    display: block;
+    text-align: right;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    padding-left: 50%;
+    position: relative;
+    font-size: 0.95rem; /* ลดขนาดฟอนต์ในเซลล์ตาราง */
+    padding: 0.8rem 1rem 0.8rem 50%; /* ปรับ padding */
+  }
+  .appointments-table td:last-child {
+    border-bottom: none;
+  }
+  /* สร้างหัวข้อของแต่ละแถวขึ้นมาใหม่ */
+  .appointments-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 1rem;
+    width: calc(50% - 2rem);
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: 700;
+    color: var(--dark-gray-text);
+  }
+
+  /* --- Slot Management Grid --- */
+  .management-grid {
+    grid-template-columns: 1fr; /* ให้เรียงเป็นคอลัมน์เดียว */
+    gap: 1rem; /* ลดระยะห่างระหว่าง slot card */
+  }
+  .slot-card {
+    padding: 1rem; /* ลด padding ของ slot card */
+  }
+  .slot-card-time {
+    font-size: 1.5rem; /* ลดขนาดฟอนต์เวลา */
+    margin-bottom: 0.5rem;
+  }
+  .slot-card-details {
+    font-size: 0.95rem; /* ลดขนาดฟอนต์รายละเอียด */
+    padding: 0.5rem;
+  }
+}
+
+/* เพิ่ม media query สำหรับหน้าจอที่เล็กมากๆ (ต่ำกว่า 480px) */
+@media (max-width: 480px) {
+  body { padding: 5px; }
+  main#app-content { padding: 0.8rem; }
+  .app-header h1 { font-size: 1.2rem; }
+  .app-header p { font-size: 0.8rem; }
+  .page-title { font-size: 1.4rem; }
+  .menu-card h3 { font-size: 1.2rem; }
+  .menu-card p { font-size: 0.9rem; }
+  .appointments-table td { font-size: 0.9rem; padding: 0.6rem 0.8rem 0.6rem 45%; }
+  .appointments-table td::before { width: calc(45% - 1.8rem); left: 0.8rem; }
+  .slot-card-time { font-size: 1.3rem; }
+  .slot-card-details { font-size: 0.9rem; }
+}

@@ -1,0 +1,48 @@
+# Node modules and package manager logs
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build / output folders
+/dist/
+/build/
+/out/
+/public/build/
+/.parcel-cache/
+/.cache/
+/coverage/
+
+# Vite-specific cache / artifacts
+/.vite/
+/.vitepress/dist/
+
+# Environment files
+# Ignore all .env files (local secrets)
+.env
+.env.*
+
+# Keep a template and Vite env meta file tracked in the repo
+!.env.example
+!.env.meta
+
+# Local env overrides
+.env.local
+*.env.local
+
+# Editors and OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Misc
+*.log
+*.tmp
+*.temp
+
+# Optional: lockfiles usually should be committed for reproducible installs.
+# Do NOT ignore package-lock.json / yarn.lock / pnpm-lock.yaml unless you intentionally want to.

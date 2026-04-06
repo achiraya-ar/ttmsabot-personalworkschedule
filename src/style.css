@@ -1,0 +1,135 @@
+@import url("https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap");
+
+@import "tailwindcss";
+
+/* ============================================================
+   Tailwind v4 Design Tokens (@theme)
+   ============================================================ */
+@theme {
+    /* Font */
+    --font-sans: "Prompt", ui-sans-serif, system-ui, sans-serif;
+
+    /* Primary Colors */
+    --color-primary-blue: #007bff;
+    --color-primary-dark: #004085;
+
+    /* Status Colors */
+    --color-status-red: #dc3545;
+    --color-status-gray-dark: #343a40;
+    --color-status-yellow: #ffc107;
+    --color-status-green: #28a745;
+    --color-status-green-dark: #1f7a35;
+    --color-status-green-light: #eaf7ed;
+
+    /* Slot Card Status */
+    --color-booked-bg: #ddefff;
+    --color-booked-text: #004085;
+    --color-booked-border: #a6d4ff;
+    --color-blocked-bg: #fff3cd;
+    --color-blocked-text: #664903;
+    --color-blocked-border: #ffdb8b;
+    --color-available-bg: #dfffe0;
+    --color-available-text: #1d5b20;
+    --color-available-border: #b0dbb1;
+
+    /* Table Row Colors */
+    --color-row-booked: #e0f0ff;
+    --color-row-blocked: #fff8e6;
+
+    /* UI Colors */
+    --color-bg-light: #ebf2fd;
+    --color-bg-white: #ffffff;
+    --color-border-light: #a3c9f7;
+    --color-light-gray: #ced4da;
+    --color-dark-gray: #212529;
+    --color-medium-gray: #6c757d;
+}
+
+/* ============================================================
+   Base Resets
+   ============================================================ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    font-family: "Prompt", ui-sans-serif, system-ui, sans-serif;
+    background-color: var(--color-bg-light);
+    color: #000000;
+    margin: 0;
+    padding: 0;
+}
+
+/* ============================================================
+   SweetAlert2 – Thai font override
+   ============================================================ */
+.swal2-popup,
+.swal2-title,
+.swal2-html-container,
+.swal2-input,
+.swal2-confirm,
+.swal2-cancel {
+    font-family: "Prompt", ui-sans-serif, system-ui, sans-serif !important;
+}
+
+.swal2-container .swal2-input {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 350px !important;
+    margin: 1em auto !important;
+}
+
+/* ============================================================
+   Appointment Table – Responsive Card Layout (mobile)
+   ============================================================ */
+@media (max-width: 640px) {
+    .appt-table {
+        border: none;
+        width: 100%;
+    }
+
+    .appt-table thead {
+        display: none;
+    }
+
+    .appt-table tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 2px solid var(--color-border-light);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+    }
+
+    .appt-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 0.5rem;
+        border: none;
+        border-bottom: 1px solid #ddd;
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+        text-align: right;
+    }
+
+    .appt-table td:last-child {
+        border-bottom: none;
+    }
+
+    .appt-table td .cell-label {
+        font-weight: 700;
+        color: var(--color-dark-gray);
+        text-align: left;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .appt-table td .cell-value {
+        text-align: right;
+        flex: 1;
+    }
+}
