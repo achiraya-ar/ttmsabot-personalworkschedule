@@ -25,16 +25,16 @@
     --color-booked-bg: #ddefff;
     --color-booked-text: #004085;
     --color-booked-border: #a6d4ff;
-    --color-blocked-bg: #fff3cd;
-    --color-blocked-text: #664903;
-    --color-blocked-border: #ffdb8b;
+    --color-blocked-bg: #0b3d91;
+    --color-blocked-text: #ffffff;
+    --color-blocked-border: #082f6b;
     --color-available-bg: #dfffe0;
     --color-available-text: #1d5b20;
     --color-available-border: #b0dbb1;
 
     /* Table Row Colors */
     --color-row-booked: #e0f0ff;
-    --color-row-blocked: #fff8e6;
+    --color-row-blocked: #e0f0ff;
 
     /* UI Colors */
     --color-bg-light: #ebf2fd;

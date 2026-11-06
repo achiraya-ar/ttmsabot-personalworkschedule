@@ -17,10 +17,14 @@ export type SlotStatus = "AVAILABLE" | "BOOKED" | "BLOCKED";
 
 /** User profile returned from the `profiles` table */
 export interface UserProfile {
+  id: string;
   email: string;
   full_name: string;
   role: string;
   username: string;
+  can_access_personalworkschedule: boolean;
+  can_access_workschedule: boolean;
+  can_access_bookingportalmanager: boolean;
 }
 
 /** A single booking record from the `bookings` table */
@@ -38,7 +42,7 @@ export interface Blockage {
   created_by: string;
 }
 
-/** Schedule data from the `schedules` table */
+/** Schedule data from the `schedule_versions` table */
 export interface ScheduleData {
   time_slots: string[];
 }

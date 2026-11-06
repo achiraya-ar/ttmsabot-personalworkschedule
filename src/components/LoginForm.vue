@@ -58,12 +58,18 @@ import { ref } from 'vue'
 import Swal from 'sweetalert2'
 import { supabase } from '../supabase'
 import { useAuthStore } from '../stores/auth'
+import type { UserProfile } from '../types'
 
 const authStore = useAuthStore()
 
 const username = ref('')
 const password = ref('')
 const isLoading = ref(false)
+
+type LoginProfile = Pick<
+  UserProfile,
+  'email' | 'full_name' | 'role' | 'can_access_personalworkschedule'
+>
 
 async function handleLogin() {
   if (!username.value.trim() || !password.value) return
@@ -76,10 +82,10 @@ async function handleLogin() {
   })
 
   try {
-    // Step 1 – look up the user's email from the profiles table
+    // Step 1 – look up the user's email and app permission from profiles
     const { data: profiles, error: profileError } = await supabase
       .from('profiles')
-      .select('email, full_name, role')
+      .select('email, full_name, role, can_access_personalworkschedule')
       .eq('username', username.value.trim())
 
     if (profileError) throw profileError
@@ -90,7 +96,7 @@ async function handleLogin() {
       return
     }
 
-    const profile = profiles[0] as { email: string; full_name: string; role: string }
+    const profile = profiles[0] as LoginProfile
 
     // Step 2 – sign in with Supabase Auth
     const { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({
@@ -103,7 +109,7 @@ async function handleLogin() {
       let message = loginError.message
 
       if (loginError.message === 'Invalid login credentials') {
-        message = 'รหัสผ่านไม่ถูกต้อง'
+        message = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง'
       } else if (
         loginError.message.includes('session is not found') ||
         (loginError as { code?: string }).code === '401'
@@ -116,6 +122,18 @@ async function handleLogin() {
     }
 
     if (loginData.user) {
+      // Step 3 – verify this account may use this app
+      if (!profile.can_access_personalworkschedule) {
+        await supabase.auth.signOut().catch(() => undefined)
+        Swal.close()
+        await Swal.fire(
+          'ไม่มีสิทธิ์เข้าถึง',
+          'บัญชีนี้ไม่ได้รับอนุญาตให้ใช้ระบบตารางนัดหมายส่วนบุคคล กรุณาติดต่อผู้ดูแลระบบ',
+          'error',
+        )
+        return
+      }
+
       Swal.close()
       authStore.setUser(profile.full_name, profile.role)
       authStore.navigateToMenu()

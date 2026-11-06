@@ -23,7 +23,7 @@
       <!-- BLOCKED -->
       <template v-else-if="slot.status === 'BLOCKED'">
         <p class="m-0 leading-relaxed">
-          <strong class="block mb-1">เหตุผล:</strong>
+          <strong class="block mb-1"><i class="fas fa-lock mr-1"></i> ล็อกคิว</strong>
           {{ slot.details }}
         </p>
         <button

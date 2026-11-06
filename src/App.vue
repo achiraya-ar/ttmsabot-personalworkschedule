@@ -82,30 +82,35 @@ onMounted(async () => {
         } = await supabase.auth.getSession();
 
         if (session) {
-            // Try to restore from sessionStorage first (fastest path)
-            if (authStore.therapistName && authStore.userRole) {
-                authStore.navigateToMenu();
-            } else {
-                // Session exists but page was refreshed – re-fetch profile from DB
-                const { data: profile, error } = await supabase
-                    .from("profiles")
-                    .select("full_name, role")
-                    .eq("id", session.user.id)
-                    .single();
+            // Always re-check the permission from DB so a revoked user
+            // cannot keep using an old session.
+            const { data: profile, error } = await supabase
+                .from("profiles")
+                .select("full_name, role, can_access_personalworkschedule")
+                .eq("id", session.user.id)
+                .single();
 
-                if (error || !profile) {
-                    // Profile not found – sign out and show login
-                    await supabase.auth.signOut();
-                    authStore.clearUser();
-                    authStore.navigateTo("login");
-                } else {
-                    authStore.setUser(
-                        (profile as { full_name: string; role: string })
-                            .full_name,
-                        (profile as { full_name: string; role: string }).role,
-                    );
-                    authStore.navigateToMenu();
-                }
+            const typedProfile = profile as {
+                full_name: string;
+                role: string;
+                can_access_personalworkschedule: boolean;
+            } | null;
+
+            if (
+                error ||
+                !typedProfile ||
+                !typedProfile.can_access_personalworkschedule
+            ) {
+                // Profile not found or access revoked – sign out and show login
+                await supabase.auth.signOut().catch(() => undefined);
+                authStore.clearUser();
+                authStore.navigateTo("login");
+            } else {
+                authStore.setUser(
+                    typedProfile.full_name,
+                    typedProfile.role,
+                );
+                authStore.navigateToMenu();
             }
         } else {
             authStore.navigateTo("login");

@@ -42,18 +42,6 @@
         :date="selectedDate"
         @refresh="loadData"
       />
-
-      <!-- Divider -->
-      <hr class="my-8 border-t-2 border-border-light" />
-
-      <!-- Appointment List -->
-      <h3 class="flex items-center gap-2 text-lg md:text-xl font-bold text-primary-blue mb-2">
-        <i class="fa-solid fa-list-check"></i>
-        รายการนัดหมาย
-        <span class="text-base font-normal text-medium-gray ml-1">({{ formatThaiDate(selectedDate) }})</span>
-      </h3>
-
-      <AppointmentListTable :appointments="dashboardData?.appointmentList ?? []" />
     </template>
   </div>
 </template>
@@ -66,7 +54,6 @@ import { getTodayString, getFutureDate, formatThaiDate } from '../utils/helpers'
 import type { DashboardData } from '../types'
 import LoadingSpinner from './LoadingSpinner.vue'
 import ManagementGrid from './ManagementGrid.vue'
-import AppointmentListTable from './AppointmentListTable.vue'
 
 const authStore = useAuthStore()
 const { isLoading, loadDashboardData } = useDashboard()
