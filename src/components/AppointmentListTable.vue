@@ -5,7 +5,13 @@
       class="appt-table w-full border-collapse mt-6"
     >
       <thead>
-        <tr class="bg-primary-dark text-white">
+        <tr
+          :class="
+            props.isHoliday
+              ? 'bg-[#FDE68A] text-[#78350F]'
+              : 'bg-primary-dark text-white'
+          "
+        >
           <th class="px-4 py-3 text-left font-bold border border-border-light w-28">เวลา</th>
           <th class="px-4 py-3 text-left font-bold border border-border-light">รายละเอียด</th>
         </tr>
@@ -51,11 +57,18 @@
 <script setup lang="ts">
 import type { AppointmentItem, SlotStatus } from '../types'
 
-defineProps<{
-  appointments: AppointmentItem[]
-}>()
+const props = withDefaults(
+  defineProps<{
+    appointments: AppointmentItem[]
+    isHoliday?: boolean
+  }>(),
+  {
+    isHoliday: false,
+  },
+)
 
 function rowClass(status: SlotStatus): string {
+  if (props.isHoliday) return 'bg-[#FEF3C7] text-[#78350F]'
   if (status === 'BOOKED') return 'bg-row-booked'
   if (status === 'BLOCKED') return 'bg-row-blocked'
   return ''

@@ -20,6 +20,7 @@
         :slot="slot"
         :therapist-name="therapistName"
         :date="date"
+        :is-holiday="isHoliday ?? false"
         @refresh="emit('refresh')"
       />
     </div>
@@ -34,6 +35,7 @@ defineProps<{
   slots: SlotInfo[]
   therapistName: string
   date: string
+  isHoliday?: boolean
 }>()
 
 const emit = defineEmits<{

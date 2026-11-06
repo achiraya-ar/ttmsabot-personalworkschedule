@@ -93,11 +93,29 @@
             />
 
             <template v-else>
+                <!-- Holiday notice -->
+                <div
+                    v-if="dashboardData?.isHoliday"
+                    class="mb-5 flex items-start gap-3 rounded-xl border border-status-yellow/50 bg-status-yellow/10 px-4 py-3 text-dark-gray"
+                >
+                    <i class="fa-solid fa-calendar-xmark mt-1 text-status-yellow"></i>
+                    <div>
+                        <p class="m-0 font-semibold">
+                            วันหยุด:
+                            {{ dashboardData.holidayDescription || "วันหยุด" }}
+                        </p>
+                        <p class="m-0 mt-1 text-sm text-medium-gray">
+                            ไม่สามารถล็อกคิวหรือจองคิวในวันนี้ได้
+                        </p>
+                    </div>
+                </div>
+
                 <!-- Management Grid -->
                 <ManagementGrid
                     :slots="dashboardData?.scheduleSlots ?? []"
                     :therapist-name="selectedTherapist"
                     :date="selectedDate"
+                    :is-holiday="dashboardData?.isHoliday ?? false"
                     @refresh="loadDashboard"
                 />
 
@@ -117,6 +135,7 @@
 
                 <AppointmentListTable
                     :appointments="dashboardData?.appointmentList ?? []"
+                    :is-holiday="dashboardData?.isHoliday ?? false"
                 />
             </template>
         </template>

@@ -17,7 +17,7 @@ export function useDashboard() {
       const selectedDate = new Date(date + 'T00:00:00')
       const dayOfWeek = selectedDate.getDay()
 
-      const [versionResult, bookingsResult, blockagesResult] =
+      const [versionResult, bookingsResult, blockagesResult, holidayResult] =
         await Promise.all([
           supabase
             .from('schedule_versions')
@@ -38,7 +38,15 @@ export function useDashboard() {
             .select('block_time, reason, created_by')
             .eq('therapist_name', therapistName)
             .eq('block_date', date),
+          supabase
+            .from('holidays')
+            .select('description')
+            .eq('holiday_date', date)
+            .maybeSingle(),
         ])
+
+      const holidayDescription = holidayResult.data?.description ?? null
+      const isHoliday = !!holidayResult.data
 
       const versionRow = versionResult.data?.[0] as
         | { time_slots: string[] | null }
@@ -93,7 +101,13 @@ export function useDashboard() {
         })
 
       if (scheduleSlots.length === 0) {
-        return { therapistName, scheduleSlots: [], appointmentList: [] }
+        return {
+          therapistName,
+          scheduleSlots: [],
+          appointmentList: [],
+          isHoliday,
+          holidayDescription,
+        }
       }
 
       // ── Build appointment list ───────────────────────────────────────────
@@ -107,11 +121,23 @@ export function useDashboard() {
         return { time: slot.time, status: slot.status, description }
       })
 
-      return { therapistName, scheduleSlots, appointmentList }
+      return {
+        therapistName,
+        scheduleSlots,
+        appointmentList,
+        isHoliday,
+        holidayDescription,
+      }
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'เกิดข้อผิดพลาดที่ไม่คาดคิด'
       error.value = msg
-      return { therapistName, scheduleSlots: [], appointmentList: [] }
+      return {
+        therapistName,
+        scheduleSlots: [],
+        appointmentList: [],
+        isHoliday: false,
+        holidayDescription: null,
+      }
     } finally {
       isLoading.value = false
     }

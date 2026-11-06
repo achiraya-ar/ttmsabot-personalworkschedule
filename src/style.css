@@ -133,3 +133,9 @@ body {
         flex: 1;
     }
 }
+
+/* ── Holiday slot cards ─────────────────────────────────────────── */
+.slot-card--holiday {
+    border-color: #fcd34d;
+    background-color: #fffbeb;
+}

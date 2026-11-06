@@ -67,6 +67,8 @@ export interface DashboardData {
   therapistName: string;
   scheduleSlots: SlotInfo[];
   appointmentList: AppointmentItem[];
+  isHoliday: boolean;
+  holidayDescription: string | null;
 }
 
 /** A patient record from the `patient_record` table (fields optional to allow partial selects) */

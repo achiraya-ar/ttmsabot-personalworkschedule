@@ -1,6 +1,11 @@
 <template>
   <div
-    class="border-2 border-border-light rounded-xl p-4 flex flex-col transition-shadow duration-200 hover:shadow-lg bg-white"
+    class="border-2 rounded-xl p-4 flex flex-col transition-shadow duration-200 hover:shadow-lg"
+    :class="
+      props.isHoliday
+        ? 'slot-card--holiday'
+        : 'border-border-light bg-white'
+    "
   >
     <!-- Time -->
     <div class="text-2xl font-bold text-center mb-3 text-black">
@@ -27,7 +32,7 @@
           {{ slot.details }}
         </p>
         <button
-          v-if="canUnblock"
+          v-if="canUnblock && !props.isHoliday"
           :disabled="isProcessing"
           @click="onUnblock"
           class="mt-2 w-full bg-medium-gray text-white font-bold py-2 px-4 rounded-md text-sm cursor-pointer transition-all duration-200 hover:opacity-90 hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed"
@@ -44,6 +49,7 @@
           ว่าง
         </p>
         <button
+          v-if="!props.isHoliday"
           :disabled="isProcessing"
           @click="onBlock"
           class="mt-2 w-full bg-status-green text-white font-bold py-2 px-4 rounded-md text-sm cursor-pointer transition-all duration-200 hover:opacity-90 hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed"
@@ -51,6 +57,9 @@
           <i class="fas fa-lock mr-1"></i>
           ล็อกคิว
         </button>
+        <p v-else class="mt-2 text-sm font-medium text-medium-gray">
+          วันหยุด — ไม่สามารถล็อกคิว
+        </p>
       </template>
     </div>
   </div>
@@ -66,6 +75,7 @@ const props = defineProps<{
   slot: SlotInfo
   therapistName: string
   date: string
+  isHoliday?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -87,6 +97,9 @@ const canUnblock = computed(() => {
 
 /** CSS classes for the status detail card */
 const statusCardClass = computed(() => {
+  if (props.isHoliday) {
+    return 'bg-[#FEF3C7] text-[#92400E] border-[#FCD34D]'
+  }
   switch (props.slot.status) {
     case 'BOOKED':
       return 'bg-booked-bg text-booked-text border-booked-border'
