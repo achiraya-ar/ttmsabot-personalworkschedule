@@ -31,6 +31,26 @@ export function formatThaiDate(dateString: string): string {
 }
 
 /**
+ * Formats an ISO timestamp into a short Thai date-time string.
+ * e.g. "2026-11-18T10:25:00+00:00" → "18 พ.ย. 2569 17:25"
+ */
+export function formatThaiDateTime(isoString: string | null | undefined): string {
+  if (!isoString) return ''
+  // Supabase returns microsecond precision, which some browsers (Safari)
+  // cannot parse. Trim it to milliseconds first.
+  const normalized = isoString.replace(/(\.\d{3})\d+/, '$1')
+  const date = new Date(normalized)
+  if (Number.isNaN(date.getTime())) return ''
+  return date.toLocaleString('th-TH', {
+    day: 'numeric',
+    month: 'short',
+    year: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  })
+}
+
+/**
  * Returns only the first word (first name) from a full name string.
  * e.g. "อชิรญาณ์ รมยศิริไทย" → "อชิรญาณ์"
  */

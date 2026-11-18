@@ -13,7 +13,7 @@ export type ViewName =
   | "admin-records";
 
 /** Status of a single time slot */
-export type SlotStatus = "AVAILABLE" | "BOOKED" | "BLOCKED";
+export type SlotStatus = "AVAILABLE" | "BOOKED" | "BLOCKED" | "NOTE_HOLD";
 
 /** User profile returned from the `profiles` table */
 export interface UserProfile {
@@ -29,10 +29,28 @@ export interface UserProfile {
 
 /** A single booking record from the `bookings` table */
 export interface Booking {
+  booking_id: string;
   booking_time: string;
   patient_first_name: string;
   patient_last_name: string;
   patient_phone: string;
+}
+
+/**
+ * A staff note attached to a booking (`booking_notes` table).
+ * Notes never alter or remove the booking itself.
+ */
+export interface BookingNote {
+  id?: number | string;
+  booking_id: string;
+  booking_date?: string;
+  booking_time?: string;
+  therapist_name?: string;
+  note: string;
+  patient_name?: string | null;
+  patient_phone?: string | null;
+  updated_by: string | null;
+  updated_at: string | null;
 }
 
 /** A single blockage record from the `blockages` table */
@@ -53,6 +71,10 @@ export interface SlotInfo {
   status: SlotStatus;
   details: string | null;
   blockedBy: string | null;
+  bookingId?: string | null;
+  patientName?: string | null;
+  patientPhone?: string | null;
+  note?: BookingNote | null;
 }
 
 /** Processed appointment row used in the appointment list table */
@@ -60,6 +82,7 @@ export interface AppointmentItem {
   time: string;
   status: SlotStatus;
   description: string;
+  note?: BookingNote | null;
 }
 
 /** Aggregated dashboard data for a therapist on a given date */

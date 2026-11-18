@@ -139,3 +139,9 @@ body {
     border-color: #fcd34d;
     background-color: #fffbeb;
 }
+
+/* ── Slot cards that have a staff note ──────────────────────────── */
+.slot-card--noted {
+    border-color: #fcd34d;
+    background-color: #fffbeb;
+}

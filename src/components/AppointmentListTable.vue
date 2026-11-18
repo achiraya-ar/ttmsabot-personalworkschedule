@@ -20,7 +20,7 @@
         <tr
           v-for="item in appointments"
           :key="item.time"
-          :class="rowClass(item.status)"
+          :class="rowClass(item.status, !!item.note)"
         >
           <td class="px-4 py-3 border border-border-light align-top">
             <span class="cell-label sm:hidden">เวลา</span>
@@ -33,6 +33,13 @@
               :class="item.status === 'AVAILABLE' ? 'text-medium-gray italic font-medium' : ''"
               v-html="formatDescription(item.description)"
             ></span>
+            <span
+              v-if="item.note"
+              class="cell-value mt-2 block rounded-lg border border-[#FCD34D] bg-[#FFFBEB] px-2.5 py-2 text-sm text-[#78350F]"
+            >
+              <span class="block text-xs font-bold text-[#92400E]">รายละเอียด:</span>
+              <span class="block whitespace-pre-line">{{ item.note.note }}</span>
+            </span>
           </td>
         </tr>
       </tbody>
@@ -67,9 +74,11 @@ const props = withDefaults(
   },
 )
 
-function rowClass(status: SlotStatus): string {
+function rowClass(status: SlotStatus, hasNote: boolean): string {
   if (props.isHoliday) return 'bg-[#FEF3C7] text-[#78350F]'
+  if (hasNote) return 'bg-[#FEF9C3]'
   if (status === 'BOOKED') return 'bg-row-booked'
+  if (status === 'NOTE_HOLD') return 'bg-[#FEF9C3]'
   if (status === 'BLOCKED') return 'bg-row-blocked'
   return ''
 }
